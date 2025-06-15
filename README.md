@@ -61,11 +61,18 @@ Three datasets were merged using common `Store` and `Date` columns:
 
 ### 🛒 Store & Department Performance
 
-> *[Originally intended: Sunburst and/or Treemap visualisations to explore department-store breakdowns were attempted. However, due to rendering issues in the environment, these were not possible within the limits of this project and were moved to the "Won’t Have" column on the project board for documentation.]*
+> 🏪 Store Type Performance
+To understand how store type influences revenue, we analyzed weekly sales across Types A, B, and C:
+
+📊 Finding: A time-series line plot revealed that Type A stores consistently outperformed Types B and C throughout the year.
+
+💡 Insight: This suggests that larger-format stores (Type A) benefit from broader product selection or better location, making them key revenue drivers.
+
+✅ Business Impact: For strategic growth, investing in or replicating the model of Type A stores could yield stronger ROI.
 
 ---
 
-### 💬 Final Visualisation: Animated Bubble Chart
+### 💬 Overall Visualisation: Animated Bubble Chart
 
 To illustrate store-level sales evolution over time, we built an **interactive animated bubble chart**:
 
