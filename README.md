@@ -1,78 +1,114 @@
 # Retail Sales Data Analysis
 
-A data analytics project exploring the relationship between promotional markdowns, holidays, and weekly retail sales using historical data from 45 stores. This project uses Python (including Pandas, Plotly and Seaborn) to extract insights that support strategic decisions in retail performance and marketing planning.
+A data analytics project exploring the relationships among **holidays**, **markdowns**, and **weekly retail sales** using historical data from 45 stores. The analysis was performed in Python using Pandas, Plotly, and Seaborn, with an emphasis on generating **business-relevant**, **data-driven**, and **actionable insights**.
 
-The dataset includes:
-- `stores_data_set.csv` — store type and size
-- `features_data_set.csv` — markdowns, CPI, fuel price, temperature, unemployment, and holiday indicators
-- `sales_data_set.csv` — weekly sales by store and department
+---
 
-Each file shares a common `Store` and `Date` column, which enabled effective merging into a single, unified dataset. After performing ETL operations—cleaning missing values and transforming date formats—we conducted a series of analyses to address key business questions:
+## 📁 Dataset Overview
 
-- **Sales Trends**: Identify the impact of time and holidays on total weekly sales.
+Three datasets were merged using common `Store` and `Date` columns:
 
-- **Holiday Impact**: Compare sales between holiday vs. non-holiday periods using both the original `IsHoliday` flag and our custom `AdjustedHoliday` column.
-While the average weekly sales during holiday-affected periods are slightly higher, our line plots reveal that **specific holidays like Christmas drive sharp spikes in sales**. This suggests that not all holidays contribute equally to revenue. Averages may understate the importance of key events, so it's vital to explore **holiday type-level analysis** to truly understand their impact.
+- `stores_data_set.csv` — store type and size  
+- `features_data_set.csv` — markdowns, CPI, fuel price, temperature, unemployment, and holiday flags  
+- `sales_data_set.csv` — weekly sales by store and department  
 
-- **Markdown Analysis**: Evaluate the relationship between promotional markdowns and sales performance.
+---
 
-- **Store & Department Performance**: Understand which store types and departments perform best overall and during holiday periods.
+## 🧠 Hypothesis
 
-- **Economic Correlations**: Explore the influence of CPI, fuel prices, and unemployment on sales using correlation matrices and visualisations.
+> Holiday periods and promotional markdowns significantly impact weekly retail sales. We expect to see sales spikes during key holiday weeks and when markdowns are applied.
 
-This approach ensures the analysis is **business-relevant**, **data-driven**, and builds toward **actionable retail insights**.
+---
 
-## Analysis techniques
+## ⚙️ ETL Pipeline
+
+1. **Data Loading**: Read all datasets into Pandas dataframes  
+2. **Data Cleaning**:
+   - Handled missing values (e.g. forward-filled CPI & Unemployment)
+   - Checked for nulls and ensured type consistency
+3. **Data Merging**: Combined datasets on `Store` and `Date`
+4. **Feature Engineering**:
+   - Created `AdjustedHoliday` column to capture weeks near real-world events like Christmas and Super Bowl
+5. **Validation**: Verified merged dataset shape and column integrity
+
+---
+
+## 📊 Key Insights & Visualisations
+
+### 🧭 Sales Trends Over Time
+
+- A **line chart** of total weekly sales revealed **distinct seasonal spikes**, especially around late December (Christmas) and late November (Thanksgiving).
+- **Original holiday labels** sometimes missed high-spike weeks (e.g., Dec 23, 2011), leading to the creation of a more context-aware `AdjustedHoliday` flag.
+
+### 🏖️ Holiday Impact
+
+- **Boxplot and line plots** showed that holidays do increase average sales, but spikes are **event-dependent**, not all holidays perform equally.
+- The `AdjustedHoliday` column captures hidden spikes like Christmas Eve not labeled as holidays in the original data.
+
+> ⚠️ **Note**: Averages may understate true holiday effects. It's key to analyse holidays individually rather than as a group; however, within the limits of this project, holidays were not further categorised or analysed by type.
+
+---
+
 ### 📉 Markdown Impact Analysis
 
-Markdown strategies were evaluated across five promotional categories. A correlation heatmap and scatter plot were used to assess their relationship with weekly sales.
+- **Correlation Heatmap** (lower triangle only) shows weak correlations between markdowns and `Weekly_Sales`
+- `MarkDown1` and `MarkDown4` were strongly correlated with each other (0.84), but not with sales (~0.05)
+- **Scatter plot** of `MarkDown1` vs `Weekly_Sales` showed high variance and little trend
 
-- **Correlation Results**: `MarkDown1` and `MarkDown4` are strongly correlated with each other (0.84), but both have only weak correlations with `Weekly_Sales` (each ~0.05). This indicates that while these markdowns may be used in tandem, their **direct impact on sales is minimal**.
-- **Visual Insight**: A scatter plot of `MarkDown1` against `Weekly_Sales` reveals high variance with no clear upward trend, reinforcing the low correlation.
-- **Interpretation**: These findings suggest that promotions alone do not drive sales. **Timing**, alignment with **holidays**, and **store-specific factors** may play a more significant role in boosting revenue.
+> ✅ Promotions alone don’t drive sales. Timing or seasonality and store type may matter more.
 
-### Adjusted Holiday Flag
+---
 
-The original `IsHoliday` column did not always reflect real-world shopping behavior. For instance, weeks like December 23, 2011 showed massive sales spikes but were not flagged as holidays. 
+### 🛒 Store & Department Performance
 
-To address this, a new `AdjustedHoliday` column was created. It marks weeks as holiday-impacted if they fall within 7 days of major events like Christmas, Thanksgiving, or the Super Bowl. While the Super Bowl isn't a federal holiday, it often influences retail trends in food and electronics, justifying its inclusion from a business perspective.
+> *[Originally intended: Sunburst and/or Treemap visualisations to explore department-store breakdowns were attempted. However, due to rendering issues in the environment, these were not possible within the limits of this project and were moved to the "Won’t Have" column on the project board for documentation.]*
 
-The next stage involves visualising these trends and evaluating how markdowns and economic indicators affect performance across store types and departments.
+---
 
+### 💬 Final Visualisation: Animated Bubble Chart
 
-## Hypothesis
+To illustrate store-level sales evolution over time, we built an **interactive animated bubble chart**:
 
-We hypothesise that holiday periods and promotional markdowns have a significant impact on weekly retail sales. Specifically, we expect to see sales spikes during major holidays and in weeks with high markdown values.
+- **X-axis**: Store  
+- **Y-axis**: Weekly Sales  
+- **Bubble Size & Color**: Reflect sales volume  
+- **Animation Frame**: Date  
 
-## Project Plan
+🎯 **Reveals**:
+- Which stores consistently outperform (Stores 4, 13, and 20; followed by stores 2, 10, 14, and 27)
+- Seasonal surges (e.g., end-of-year spikes)
+- Time-based store performance variance
 
-This project followed a fast-paced project model using Jupyter Notebook for data exploration and GitHub for version control. The process included:
+---
 
-1. **Data Loading**: Loaded CSV files into dataframes using Pandas.
-2. **ETL Process**:
-   - Handled missing values using imputation (forward-fill for economic indicators).
-   - Merged datasets on `Store` and `Date`.
-   - Created a new `AdjustedHoliday` column for improved holiday accuracy.
-3. **Exploratory Data Analysis**:
-   - Plotted total sales trends over time.
-   - Compared sales between holiday and non-holiday weeks.
-   - Investigated markdown effectiveness.
-   - Evaluated department/store type performance.
-   - Analysed correlation with economic indicators.
+## 🧪 Tools & Libraries Used
 
- 4. **Version Control**: Committed regularly using `git add .`, `git commit -m ""`, and `git push` to keep the project synched with GitHub.
+- **Pandas** — ETL and data manipulation  
+- **Plotly** — Interactive and animated visualisations  
+- **Seaborn** — Statistical heatmaps and scatter plots  
+- **VS Code + Jupyter Notebook** — Analysis and development  
+- **Git + GitHub** — Version control and Kanban board for project management  
 
-## Tools & Libraries Used
+---
 
-- **Pandas**: Data manipulation and cleaning
-- **Plotly**: Interactive data visualizations
-- **Seaborn**: Statistical plots for deeper insights
-- **VS Code + Jupyter Notebook**: Development environment
-- **GitHub**: Version control and project tracking
+## ✅ Ethical & Data Integrity Considerations
 
-## Ethical Considerations
+- Dataset is anonymised; no customer-level data present  
+- Correlation ≠ causation: markdowns and economic indicators are interpreted cautiously  
+- Adjusted for **dataset labeling issues** (e.g., misclassified holiday weeks)
 
-- The dataset anonymised, and avoids any customer data exposure.
-- We remain cautious in interpreting correlations as causations—economic data may be influenced by many external factors.
-- Highlighted a potential flaw in the original dataset’s holiday labeling, demonstrating the importance of validating source data.
+---
+
+## 📉 Feature Relevance
+
+While the dataset includes columns like `Fuel_Price`, `CPI`, `Temperature`, and `Unemployment`, they were not prioritized in the final analysis for two reasons:
+
+1. **Low Business Impact**: Initial correlation checks revealed **very weak relationships** between these indicators and weekly sales. Their fluctuations didn’t meaningfully align with revenue changes.
+
+2. **Retail Context**: In the short-term retail setting, **consumer behavior is more influenced by promotions, holidays, and store operations** than macroeconomic variables. These features may be more relevant in long-term trend analysis or inflation-adjusted performance, which was beyond the scope of this project.
+
+> 🎯 We focused on the variables that gave **clear, actionable insights** to business decision-makers—like holidays, store types, and markdown effectiveness.
+
+---
+
 
