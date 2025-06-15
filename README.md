@@ -17,9 +17,48 @@ Each file shares a common `Store` and `Date` column, which enabled effective mer
 
 This approach ensures the analysis is **business-relevant**, **data-driven**, and builds toward **actionable retail insights**.
 
-
+## Analysis techniques
 ### Adjusted Holiday Flag
 
 The original `IsHoliday` column did not always reflect real-world shopping behavior. For instance, weeks like December 23, 2011 showed massive sales spikes but were not flagged as holidays. 
 
 To address this, a new `AdjustedHoliday` column was created. It marks weeks as holiday-impacted if they fall within 7 days of major events like Christmas, Thanksgiving, or the Super Bowl. While the Super Bowl isn't a federal holiday, it often influences retail trends in food and electronics, justifying its inclusion from a business perspective.
+
+The next stage involves visualising these trends and evaluating how markdowns and economic indicators affect performance across store types and departments.
+
+
+## Hypothesis
+
+We hypothesise that holiday periods and promotional markdowns have a significant impact on weekly retail sales. Specifically, we expect to see sales spikes during major holidays and in weeks with high markdown values.
+
+## Project Plan
+
+This project followed a fast-paced project model using Jupyter Notebook for data exploration and GitHub for version control. The process included:
+
+1. **Data Loading**: Loaded CSV files into dataframes using Pandas.
+2. **ETL Process**:
+   - Handled missing values using imputation (forward-fill for economic indicators).
+   - Merged datasets on `Store` and `Date`.
+   - Created a new `AdjustedHoliday` column for improved holiday accuracy.
+3. **Exploratory Data Analysis**:
+   - Plotted total sales trends over time.
+   - Compared sales between holiday and non-holiday weeks.
+   - Investigated markdown effectiveness.
+   - Evaluated department/store type performance.
+   - Analysed correlation with economic indicators.
+4. **Version Control**: Committed regularly using `git add .`, `git commit -m ""`, and `git push` to keep the project synched with GitHub.
+
+## Tools & Libraries Used
+
+- **Pandas**: Data manipulation and cleaning
+- **Plotly**: Interactive data visualizations
+- **Seaborn**: Statistical plots for deeper insights
+- **VS Code + Jupyter Notebook**: Development environment
+- **GitHub**: Version control and project tracking
+
+## Ethical Considerations
+
+- The dataset is synthetic and anonymised, avoiding real customer data exposure.
+- We remain cautious in interpreting correlations as causations—economic data may be influenced by many external factors.
+- Highlighted a potential flaw in the original dataset’s holiday labeling, demonstrating the importance of validating source data.
+
