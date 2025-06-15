@@ -10,14 +10,20 @@ The dataset includes:
 Each file shares a common `Store` and `Date` column, which enabled effective merging into a single, unified dataset. After performing ETL operations—cleaning missing values and transforming date formats—we conducted a series of analyses to address key business questions:
 
 - **Sales Trends**: Identify the impact of time and holidays on total weekly sales.
+
 - **Holiday Impact**: Compare sales between holiday vs. non-holiday periods using both the original `IsHoliday` flag and our custom `AdjustedHoliday` column.
+While the average weekly sales during holiday-affected periods are slightly higher, our line plots reveal that **specific holidays like Christmas drive sharp spikes in sales**. This suggests that not all holidays contribute equally to revenue. Averages may understate the importance of key events, so it's vital to explore **holiday type-level analysis** to truly understand their impact.
+
 - **Markdown Analysis**: Evaluate the relationship between promotional markdowns and sales performance.
+
 - **Store & Department Performance**: Understand which store types and departments perform best overall and during holiday periods.
+
 - **Economic Correlations**: Explore the influence of CPI, fuel prices, and unemployment on sales using correlation matrices and visualisations.
 
 This approach ensures the analysis is **business-relevant**, **data-driven**, and builds toward **actionable retail insights**.
 
 ## Analysis techniques
+
 ### Adjusted Holiday Flag
 
 The original `IsHoliday` column did not always reflect real-world shopping behavior. For instance, weeks like December 23, 2011 showed massive sales spikes but were not flagged as holidays. 
@@ -46,7 +52,8 @@ This project followed a fast-paced project model using Jupyter Notebook for data
    - Investigated markdown effectiveness.
    - Evaluated department/store type performance.
    - Analysed correlation with economic indicators.
-4. **Version Control**: Committed regularly using `git add .`, `git commit -m ""`, and `git push` to keep the project synched with GitHub.
+
+ 4. **Version Control**: Committed regularly using `git add .`, `git commit -m ""`, and `git push` to keep the project synched with GitHub.
 
 ## Tools & Libraries Used
 
@@ -58,7 +65,7 @@ This project followed a fast-paced project model using Jupyter Notebook for data
 
 ## Ethical Considerations
 
-- The dataset is synthetic and anonymised, avoiding real customer data exposure.
+- The dataset anonymised, and avoids any customer data exposure.
 - We remain cautious in interpreting correlations as causations—economic data may be influenced by many external factors.
 - Highlighted a potential flaw in the original dataset’s holiday labeling, demonstrating the importance of validating source data.
 
