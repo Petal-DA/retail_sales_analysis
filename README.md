@@ -23,6 +23,13 @@ While the average weekly sales during holiday-affected periods are slightly high
 This approach ensures the analysis is **business-relevant**, **data-driven**, and builds toward **actionable retail insights**.
 
 ## Analysis techniques
+### 📉 Markdown Impact Analysis
+
+Markdown strategies were evaluated across five promotional categories. A correlation heatmap and scatter plot were used to assess their relationship with weekly sales.
+
+- **Correlation Results**: `MarkDown1` and `MarkDown4` are strongly correlated with each other (0.84), but both have only weak correlations with `Weekly_Sales` (each ~0.05). This indicates that while these markdowns may be used in tandem, their **direct impact on sales is minimal**.
+- **Visual Insight**: A scatter plot of `MarkDown1` against `Weekly_Sales` reveals high variance with no clear upward trend, reinforcing the low correlation.
+- **Interpretation**: These findings suggest that promotions alone do not drive sales. **Timing**, alignment with **holidays**, and **store-specific factors** may play a more significant role in boosting revenue.
 
 ### Adjusted Holiday Flag
 
