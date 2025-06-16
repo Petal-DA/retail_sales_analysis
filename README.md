@@ -2,120 +2,120 @@
 
 A data analytics project exploring the relationships among **holidays**, **markdowns**, and **weekly retail sales** using historical data from 45 stores. The analysis was performed in Python using Pandas, Plotly, and Seaborn, with an emphasis on generating **business-relevant**, **data-driven**, and **actionable insights**.
 
----
+## Dataset Content
 
-## 📁 Dataset Overview
+This dataset was highly relevant to business questions, as it provided store-level weekly sales along with contextual features like holidays, markdowns, and economic indicators—all key inputs for analysing retail performance drivers.
 
 Three datasets were merged using common `Store` and `Date` columns:
 
-- `stores_data_set.csv` — store type and size  
-- `features_data_set.csv` — markdowns, CPI, fuel price, temperature, unemployment, and holiday flags  
-- `sales_data_set.csv` — weekly sales by store and department  
+- `stores_data_set.csv` — store type and size
+- `features_data_set.csv` — markdowns, CPI, fuel price, temperature, unemployment, and holiday flags
+- `sales_data_set.csv` — weekly sales by store and department
 
----
+## Business Requirements
 
-## 🧠 Hypothesis
+- Identify the impact of holidays and markdowns on weekly sales
+- Understand which store types and departments perform best
+- Explore correlations between economic indicators and sales
+
+## Hypothesis and how to validate?
 
 > Holiday periods and promotional markdowns significantly impact weekly retail sales. We expect to see sales spikes during key holiday weeks and when markdowns are applied.
 
----
+**Validation Steps**:
 
-## ⚙️ ETL Pipeline
+- Use line plots to identify seasonal spikes
+- Compare weekly sales averages between holiday and non-holiday weeks
+- Correlation analysis between markdown values and weekly sales
 
-1. **Data Loading**: Read all datasets into Pandas dataframes  
-2. **Data Cleaning**:
-   - Handled missing values (e.g. forward-filled CPI & Unemployment)
-   - Checked for nulls and ensured type consistency
-3. **Data Merging**: Combined datasets on `Store` and `Date`
-4. **Feature Engineering**:
-   - Created `AdjustedHoliday` column to capture weeks near real-world events like Christmas and Super Bowl
-5. **Validation**: Verified merged dataset shape and column integrity
+## Project Plan
 
----
+- **Data Loading**: Read all datasets into Pandas dataframes
+- **Data Cleaning**:
+  - Handled missing values:
+    - Forward-filled CPI & Unemployment to preserve economic trend continuity, as these two variables are only expected to change gradually from week to week 
+    - Filled missing markdowns with 0 to reflect periods with no promotions (a guarded assumption)
+  - Checked for nulls and ensured type consistency
+- **Data Merging**: Combined datasets on `Store` and `Date`
+- **Feature Engineering**:
+  - Created an 'AdjustedHoliday' column to reflect real-world retail events: The original 'IsHoliday' flag missed critical high-spend weeks such as Christmas Eve. By identifying dates within 7 days of events like Christmas, Thanksgiving, and the Super Bowl, we captured additional spikes in sales that would otherwise go unflagged. This adjusted label offers a more business-aware understanding of holiday-driven demand patterns.
+- **Validation**: Verified dataset shape and integrity post-merge
 
-## 📊 Key Insights & Visualisations
+## Rationale to Map Business Requirements to Data Visualisations
 
-### 🧭 Sales Trends Over Time
+- **Sales Trends**: Line charts for weekly sales
+- **Holiday Impact**: Boxplots and enhanced line plots using `IsHoliday` and `AdjustedHoliday`
+- **Markdown Analysis**: Correlation heatmaps and scatter plots
+- **Store Performance**: Store-type specific line charts
+- **Dynamic Insight**: Animated bubble plot to highlight store trends over time
 
-- A **line chart** of total weekly sales revealed **distinct seasonal spikes**, especially around late December (Christmas) and late November (Thanksgiving).
-- **Original holiday labels** sometimes missed high-spike weeks (e.g., Dec 23, 2011), leading to the creation of a more context-aware `AdjustedHoliday` flag.
+## Analysis Techniques Used
 
-### 🏖️ Holiday Impact
+- Correlation matrices
+- Static and interactive visualizations
+- Feature engineering to improve label accuracy
 
-- **Boxplot and line plots** showed that holidays do increase average sales, but spikes are **event-dependent**, not all holidays perform equally.
-- The `AdjustedHoliday` column captures hidden spikes like Christmas Eve not labeled as holidays in the original data.
+**Limitations**:
 
-> ⚠️ **Note**: Averages may understate true holiday effects. It's key to analyse holidays individually rather than as a group; however, within the limits of this project, holidays were not further categorised or analysed by type.
+- Economic indicators showed low sales correlations
+- Sunburst and Treemap plots were initially considered, but ultimately excluded due to rendering limitations
 
----
+**AI Tools Used**:
 
-### 📉 Markdown Impact Analysis
+- Code optimization
+- Markdown formatting
+- Visualisation strategy review
 
-- **Correlation Heatmap** (lower triangle only) shows weak correlations between markdowns and `Weekly_Sales`
-- `MarkDown1` and `MarkDown4` were strongly correlated with each other (0.84), but not with sales (~0.05)
-- **Scatter plot** of `MarkDown1` vs `Weekly_Sales` showed high variance and little trend
+## Ethical Considerations
 
-> ✅ Promotions alone don’t drive sales. Timing or seasonality and store type may matter more.
+- Anonymized data, no customer details were included in data analysis
+- Holiday mislabeling corrected with `AdjustedHoliday`
+- Causal claims avoided; insights presented with context
 
----
+## Dashboard Design
 
-### 🛒 Store & Department Performance
+- Visuals are embedded throughout the Jupyter Notebook, each introduced and explained via contextual markdown for clarity.
+- Titles, axis labels, legends, and interactivity were applied to ensure all charts could be understood by both technical and non-technical audiences.
+- The **most impactful visualisations** include:
+  - **Line plot of weekly sales over time**: Showed seasonal spikes and motivated the creation of the `AdjustedHoliday` flag.
+  - **Boxplot comparing `IsHoliday` and `AdjustedHoliday` sales**: Highlighted the improved accuracy of our engineered feature.
+  - **Animated Bubble Chart**: Offered a dynamic, store-level view of performance over time, revealing consistent top-performers.
 
-> 🏪 Store Type Performance
-To understand how store type influences revenue, we analyzed weekly sales across Types A, B, and C:
+These charts were aligned with the business goals and delivered strong narrative clarity and decision support.
 
-📊 Finding: A time-series line plot revealed that Type A stores consistently outperformed Types B and C throughout the year.
+## Unfixed Bugs
 
-💡 Insight: This suggests that larger-format stores (Type A) benefit from broader product selection or better location, making them key revenue drivers.
+- None impacting outputs
+- Sunburst and Treemap plots were initially explored, but rendering issues were encountered; thus, they were omitted from consideration.
 
-✅ Business Impact: For strategic growth, investing in or replicating the model of Type A stores could yield stronger ROI.
+## Development Roadmap
 
----
+- Day 1: ETL and preliminary visuals
+- Day 2: Advanced plots, insights, and dashboard polish
+- Future: Feature-level filterable dashboards
 
-### 💬 Overall Visualisation: Animated Bubble Chart
+## Main Data Analysis Libraries
 
-To illustrate store-level sales evolution over time, we built an **interactive animated bubble chart**:
+- `pandas` — data wrangling
+- `plotly.express` — interactive charts
+- `seaborn` — statistical visualizations
 
-- **X-axis**: Store  
-- **Y-axis**: Weekly Sales  
-- **Bubble Size & Color**: Reflect sales volume  
-- **Animation Frame**: Date  
+## Credits
 
-🎯 **Reveals**:
-- Which stores consistently outperform (Stores 4, 13, and 20; followed by stores 2, 10, 14, and 27)
-- Seasonal surges (e.g., end-of-year spikes)
-- Time-based store performance variance
+### Content
 
----
+- Code Institute curriculum and facilitators
+- OpenAI's ChatGPT for code support and visual guidance
 
-## 🧪 Tools & Libraries Used
+### Media
 
-- **Pandas** — ETL and data manipulation  
-- **Plotly** — Interactive and animated visualisations  
-- **Seaborn** — Statistical heatmaps and scatter plots  
-- **VS Code + Jupyter Notebook** — Analysis and development  
-- **Git + GitHub** — Version control and Kanban board for project management  
+- All plots created using Plotly and Seaborn within Jupyter Notebook
 
----
+## Acknowledgements
 
-## ✅ Ethical & Data Integrity Considerations
-
-- Dataset is anonymised; no customer-level data present  
-- Correlation ≠ causation: markdowns and economic indicators are interpreted cautiously  
-- Adjusted for **dataset labeling issues** (e.g., misclassified holiday weeks)
-
----
-
-## 📉 Feature Relevance
-
-While the dataset includes columns like `Fuel_Price`, `CPI`, `Temperature`, and `Unemployment`, they were not prioritized in the final analysis for two reasons:
-
-1. **Low Business Impact**: Initial correlation checks revealed **very weak relationships** between these indicators and weekly sales. Their fluctuations didn’t meaningfully align with revenue changes.
-
-2. **Retail Context**: In the short-term retail setting, **consumer behavior is more influenced by promotions, holidays, and store operations** than macroeconomic variables. These features may be more relevant in long-term trend analysis or inflation-adjusted performance, which was beyond the scope of this project.
-
-> 🎯 We focused on the variables that gave **clear, actionable insights** to business decision-makers—like holidays, store types, and markdown effectiveness.
+- Thanks to Code Institute staff and community members, including the following individuals (listed alphabetically): Spencer Barriball; Julian Elliott; Emma Lamont; Kevin Loughrey; Niel McEwen; John Rearden.
+- ChatGPT credited as a logic reviewer, design advisor, and debugging tool
 
 ---
 
-
+> **Note**: All plots were made using Plotly and Seaborn.
