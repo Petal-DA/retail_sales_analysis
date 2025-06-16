@@ -45,7 +45,7 @@ Three datasets were merged using common `Store` and `Date` columns:
 
 - **Sales Trends**: Line charts for weekly sales
 - **Holiday Impact**: Boxplots and enhanced line plots using `IsHoliday` and `AdjustedHoliday`
-- **Markdown Analysis**: Correlation heatmaps and scatter plots
+- **Markdown Analysis**: Correlation heatmaps
 - **Store Performance**: Store-type specific line charts
 - **Dynamic Insight**: Animated bubble plot to highlight store trends over time
 
@@ -86,7 +86,7 @@ Although the brief required 3 visualisations, 7 were included to ensure the anal
 
 ## Unfixed Bugs
 
-- None impacting outputs
+- Plots which were visible in VS Code for some reason were not visible in GitHub. These were saved in a separate folder of the repository titled 'images'. The file names for each plot remained consistent between the saved png images and the corresponding chart titles in the Jupyter notebook.
 - Sunburst and Treemap plots were initially explored, but rendering issues were encountered; thus, they were omitted from consideration.
 
 ## Development Roadmap
