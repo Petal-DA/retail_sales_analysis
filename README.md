@@ -82,6 +82,7 @@ Three datasets were merged using common `Store` and `Date` columns:
   - **Animated Bubble Chart**: Offered a dynamic, store-level view of performance over time, revealing consistent top-performers.
 
 These charts were aligned with the business goals and delivered strong narrative clarity and decision support.
+Although the brief required 3 visualisations, 8 were included to ensure the analysis addressed the project's full scope—from temporal sales dynamics to economic influences and store-level performance. Each was selected based on its relevance and insightfulness.
 
 ## Unfixed Bugs
 
